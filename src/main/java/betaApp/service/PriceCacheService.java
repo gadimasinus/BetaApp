@@ -15,7 +15,7 @@ public class PriceCacheService {
 	}
 	
 	public static Optional<Double> getPrice(String key) {
-		return  Optional.of(priceMap.get(key));
+		return  Optional.ofNullable(priceMap.get(key));
 	}
 	
 	public static boolean addPricesToCache(List<TickerPrice> prices) {

@@ -3,7 +3,7 @@ package betaApp.dto;
 public class BetaRequest {
 
 	private String ticker;
-	private String baselineTikcer;
+	private String baselineTicker;
 	private String startDate;
 	private String endDate;
 	private int betaDurationDays;
@@ -13,11 +13,11 @@ public class BetaRequest {
 	public void setTicker(String ticker) {
 		this.ticker = ticker;
 	}
-	public String getBaselineTikcer() {
-		return baselineTikcer;
+	public String getBaselineTicker() {
+		return baselineTicker;
 	}
-	public void setBaselineTikcer(String baselineTikcer) {
-		this.baselineTikcer = baselineTikcer;
+	public void setBaselineTicker(String baselineTicker) {
+		this.baselineTicker = baselineTicker;
 	}
 	public String getStartDate() {
 		return startDate;
@@ -40,7 +40,7 @@ public class BetaRequest {
 	
 	@Override
 	public String toString() {
-		return "BetaRequest [ticker=" + ticker + ", baselineTikcer=" + baselineTikcer + ", startDate=" + startDate
+		return "BetaRequest [ticker=" + ticker + ", baselineTicker=" + baselineTicker + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", betaDurationDays=" + betaDurationDays + "]";
 	}
 	
