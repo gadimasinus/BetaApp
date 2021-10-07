@@ -5,41 +5,48 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import betaApp.dto.TickerPrice;
 
+@Service
 public class PriceFileParserService {
 	
-	private String filePath;
-	public PriceFileParserService(String fileFullPath) {
-		this.filePath = fileFullPath;
-	}
-
+	@Value("${closingPrices.fileName}")
+	private String priceFileName;
+	
 	public List<TickerPrice> getAllClosingPrices() {
-
 		try {
-			return parsePriceFile(this.filePath);
+			if(!checkPricesFile()) {
+				System.out.println("closing prices file missing, add prices.txt file in current dir");
+				return Collections.emptyList();
+			}
+			return parsePriceFile(this.priceFileName);
 		} catch(Exception ex) {
+			System.out.println(ex);
 			return Collections.emptyList();
 		}
-			
+	}
+	
+	private boolean checkPricesFile() {
+		Path path = Paths.get(priceFileName);
+		return Files.exists(path);
 	}
 	
 	private  List<TickerPrice> parsePriceFile(String filePath) throws FileNotFoundException, IOException {
 		
-		if(filePath ==null || filePath.length()==0) {
-			System.out.println("filePath is missing...");
-			return Collections.EMPTY_LIST;
-		}
-		
 		File priceFile = new File(filePath);
 		List<TickerPrice> priceList = new ArrayList<TickerPrice>();
-		
+		System.out.println("Parseing prices file started...");
+
 		try(BufferedReader br = new BufferedReader(new FileReader(priceFile)) ) {
 			String line;
 			while((line = br.readLine()) != null) {
@@ -50,9 +57,6 @@ public class PriceFileParserService {
 				 }
 			}
 		}
-		
 		return priceList;
 	}
-	
-	
 }

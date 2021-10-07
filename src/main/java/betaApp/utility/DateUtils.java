@@ -39,9 +39,7 @@ public class DateUtils {
 	
 	public static LocalDate getDateFromString(String dateStr) {
         LocalDate localDate = LocalDate.parse(dateStr, formatter);
-     //   System.out.println(localDate);  //default, print ISO_LOCAL_DATE
         return localDate;
-
 	}
 	
 	public static LocalDate subtractBusinessDays(LocalDate localDate, int days, Optional<List<LocalDate>> holidays) {
@@ -60,7 +58,6 @@ public class DateUtils {
 			result = result.minusDays(1);
 			if (isHoliday.or(isWeekend).negate().test(result)) {
 				days--;
-				//System.out.println(result);
 			}
 		}
 		return result;
